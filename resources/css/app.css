@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme inline {
+    --color-card: var(--card);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-muted: var(--muted);
+    --color-accent: var(--accent);
+    --color-border: var(--border);
+    --color-radius: var(--radius);
+    --color-shadow: var(--shadow);
+    --color-popover: var(--popover);
+    --color-primary: var(--primary);
+    --color-spacing: var(--spacing);
+    --color-font-mono: var(--font-mono);
+    --color-font-sans: var(--font-sans);
+    --color-secondary: var(--secondary);
+    --color-shadow-lg: var(--shadow-lg);
+    --color-shadow-md: var(--shadow-md);
+    --color-shadow-sm: var(--shadow-sm);
+    --color-shadow-xl: var(--shadow-xl);
+    --color-background: var(--background);
+    --color-font-serif: var(--font-serif);
+    --color-foreground: var(--foreground);
+    --color-shadow-2xl: var(--shadow-2xl);
+    --color-destructive: var(--destructive);
+    --color-card-foreground: var(--card-foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-destructive-foreground: var(--destructive-foreground);
+}
+
+@layer base {
+    :root {
+        --card: #f9fafb;
+        --ring: #e50914;
+        --input: #e5e7eb;
+        --muted: #f9fafb;
+        --accent: #fffbeb;
+        --border: #e5e7eb;
+        --radius: 0.25rem;
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        --popover: #ffffff;
+        --primary: #e50914;
+        --spacing: 0.25rem;
+        --font-mono: 'Courier New', monospace;
+        --font-sans: 'Netflix Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        --secondary: #f3f4f6;
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --background: #ffffff;
+        --font-serif: 'Georgia', serif;
+        --foreground: #000000;
+        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        --destructive: #ef4444;
+        --card-foreground: #171717;
+        --muted-foreground: #6b7280;
+        --accent-foreground: #92400e;
+        --popover-foreground: #000000;
+        --primary-foreground: #ffffff;
+        --secondary-foreground: #4b5563;
+        --destructive-foreground: #ffffff;
+
+        /* Legacy aliases used by current Blade classes */
+        --brand-red: var(--primary);
+        --brand-red-dark: #b20710;
+        --brand-red-soft: var(--accent);
+        --brand-red-05: rgba(229, 9, 20, 0.05);
+        --brand-red-10: rgba(229, 9, 20, 0.1);
+        --brand-red-15: rgba(229, 9, 20, 0.15);
+        --brand-red-20: rgba(229, 9, 20, 0.2);
+        --brand-red-30: rgba(229, 9, 20, 0.3);
+        --brand-red-40: rgba(229, 9, 20, 0.4);
+        --brand-red-90: rgba(229, 9, 20, 0.9);
+        --brand-ink: var(--foreground);
+        --paper: var(--background);
+    }
+
+    .dark {
+        --card: #1a1a1a;
+        --ring: #e50914;
+        --input: #404040;
+        --muted: #2b2b2b;
+        --accent: #e50914;
+        --border: #404040;
+        --radius: 0.25rem;
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        --popover: #1a1a1a;
+        --primary: #e50914;
+        --spacing: 0.25rem;
+        --font-mono: 'Courier New', monospace;
+        --font-sans: 'Netflix Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        --secondary: #2b2b2b;
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --background: #000000;
+        --font-serif: 'Georgia', serif;
+        --foreground: #ffffff;
+        --shadow-2xl: 0px 0.25rem 0.5rem 0px rgba(0, 0, 0, 0.8);
+        --destructive: #e50914;
+        --card-foreground: #ffffff;
+        --muted-foreground: #a3a3a3;
+        --accent-foreground: #ffffff;
+        --popover-foreground: #ffffff;
+        --primary-foreground: #ffffff;
+        --secondary-foreground: #a3a3a3;
+        --destructive-foreground: #ffffff;
+
+        --brand-red: var(--primary);
+        --brand-red-dark: #b20710;
+        --brand-red-soft: var(--accent);
+        --brand-red-05: rgba(229, 9, 20, 0.05);
+        --brand-red-10: rgba(229, 9, 20, 0.1);
+        --brand-red-15: rgba(229, 9, 20, 0.15);
+        --brand-red-20: rgba(229, 9, 20, 0.2);
+        --brand-red-30: rgba(229, 9, 20, 0.3);
+        --brand-red-40: rgba(229, 9, 20, 0.4);
+        --brand-red-90: rgba(229, 9, 20, 0.9);
+        --brand-ink: var(--foreground);
+        --paper: var(--background);
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--foreground);
+        background: var(--background);
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center gap-2 rounded-full bg-[color:var(--brand-red)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:-translate-y-0.5 hover:bg-[color:var(--brand-red-dark)];
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center gap-2 rounded-full border border-[color:var(--brand-red-40)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-[color:var(--brand-red)] transition hover:border-[color:var(--brand-red)] hover:bg-[color:var(--brand-red-10)];
+    }
+
+    .chip {
+        @apply rounded-full border border-[color:var(--brand-red-30)] px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-slate-500;
+    }
+
+    .card {
+        @apply rounded-2xl border border-red-100/80 bg-white/80 p-5 shadow-[0_20px_60px_-45px_rgba(125,12,20,0.6)];
+    }
+}
+
+@layer utilities {
+    .font-display {
+        font-family: 'Bebas Neue', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .bg-grid {
+        background-image: linear-gradient(90deg, var(--brand-red-05) 1px, transparent 1px),
+            linear-gradient(0deg, var(--brand-red-05) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .animate-fade-up {
+        animation: fade-up 0.8s ease both;
+    }
+
+    .animate-fade-up-delay {
+        animation: fade-up 0.9s ease both;
+        animation-delay: 0.12s;
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 24px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(0, -14px, 0);
+    }
+}
