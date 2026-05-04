@@ -142,19 +142,23 @@ Hasil:
 - Pint: passed.
 - Vite build: passed.
 
-Cakupan test utama:
+Daftar pengujian PHPUnit yang dijalankan:
 
-- Admin membuat produk dengan slug otomatis.
-- Slug produk wajib unik.
-- Password member admin wajib kuat.
-- Admin melakukan stock in dan adjustment inventory.
-- Stock out manual ditolak saat melebihi stok.
-- Customer menambah produk ke cart dan checkout.
-- Checkout ditolak ketika stok berubah dan tidak lagi mencukupi.
-- Admin update status order bertahap dan histori tersimpan.
-- Admin menandai order sebagai lunas dan inventory movement stock-out dibuat.
-- Admin tidak dapat melewati status `processing` langsung ke `completed`.
-- Webhook Midtrans lunas mengubah status order dan mencatat histori.
+| No | File Test | Nama Test | Pengujian |
+| --- | --- | --- | --- |
+| 1 | `tests/Unit/ExampleTest.php` | `test_that_true_is_true` | Memastikan konfigurasi unit test berjalan. |
+| 2 | `tests/Feature/ExampleTest.php` | `test_the_application_returns_a_successful_response` | Memastikan halaman utama dapat diakses. |
+| 3 | `tests/Feature/AdminCatalogAndMemberFlowTest.php` | `test_admin_can_create_product_with_generated_slug` | Admin dapat membuat produk dan slug otomatis dibuat dari nama produk. |
+| 4 | `tests/Feature/AdminCatalogAndMemberFlowTest.php` | `test_admin_product_slug_must_be_unique` | Validasi menolak slug produk yang sudah digunakan. |
+| 5 | `tests/Feature/AdminCatalogAndMemberFlowTest.php` | `test_admin_member_password_requires_letters_and_numbers` | Validasi password member wajib minimal 8 karakter dengan huruf dan angka. |
+| 6 | `tests/Feature/AdminInventoryFlowTest.php` | `test_admin_can_record_stock_in_and_stock_adjustment` | Admin dapat mencatat stock in dan adjustment, serta stok produk berubah sesuai movement. |
+| 7 | `tests/Feature/AdminInventoryFlowTest.php` | `test_admin_cannot_stock_out_more_than_available_stock` | Stock out manual ditolak jika quantity melebihi stok tersedia. |
+| 8 | `tests/Feature/CustomerCheckoutFlowTest.php` | `test_customer_can_add_product_to_cart_and_checkout` | Customer dapat menambah produk ke cart, checkout, membuat order, item order, dan histori awal. |
+| 9 | `tests/Feature/CustomerCheckoutFlowTest.php` | `test_checkout_rejects_cart_when_stock_is_no_longer_sufficient` | Checkout ditolak jika stok terbaru tidak lagi mencukupi quantity di cart. |
+| 10 | `tests/Feature/OrderStatusFlowTest.php` | `test_admin_can_update_order_status_step_by_step_and_history_is_saved` | Admin dapat mengubah status order bertahap dan histori status tersimpan. |
+| 11 | `tests/Feature/OrderStatusFlowTest.php` | `test_admin_marking_pending_order_as_paid_creates_stock_out_movement` | Saat admin menandai order pending sebagai lunas, stok produk berkurang dan inventory movement dibuat. |
+| 12 | `tests/Feature/OrderStatusFlowTest.php` | `test_admin_cannot_skip_from_processing_directly_to_completed` | Admin tidak dapat melewati alur status dari processing langsung ke completed. |
+| 13 | `tests/Feature/OrderStatusFlowTest.php` | `test_midtrans_webhook_paid_sets_order_to_processing_and_creates_history` | Webhook Midtrans berstatus lunas mengubah order menjadi processing dan mencatat histori pembayaran. |
 
 ## Deployment Singkat
 
