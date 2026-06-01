@@ -3,20 +3,41 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderStatusHistory;
 use App\Models\Product;
+use App\Models\SalesActivity;
+use App\Models\SalesClient;
 use App\Models\User;
+use App\Services\CustomerSegmentationService;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): View
+    public function __construct(
+        private readonly CustomerSegmentationService $customerSegmentationService,
+    ) {}
+
+    public function __invoke(Request $request): View
     {
+        $filters = $request->validate([
+            'segment_start' => ['nullable', 'date'],
+            'segment_end' => ['nullable', 'date', 'after_or_equal:segment_start'],
+        ]);
+
         $now = CarbonImmutable::now();
+        $segmentStart = isset($filters['segment_start'])
+            ? CarbonImmutable::parse($filters['segment_start'])->startOfDay()
+            : null;
+        $segmentEnd = isset($filters['segment_end'])
+            ? CarbonImmutable::parse($filters['segment_end'])->endOfDay()
+            : null;
+        $segmentationAsOf = $segmentEnd ?? $now->endOfDay();
         $chartStart = $now->subWeeks(5)->startOfWeek();
         $chartEnd = $now->endOfWeek();
         $paidOrdersForCharts = $this->paidOrdersBetween($chartStart, $chartEnd);
@@ -45,10 +66,29 @@ class DashboardController extends Controller
             ->groupBy('payment_status')
             ->pluck('total', 'payment_status');
 
+        $salesClientSummary = SalesClient::query()
+            ->selectRaw('COUNT(*) as total_client_count')
+            ->selectRaw('COALESCE(SUM(CASE WHEN status = ? THEN 1 ELSE 0 END), 0) as prospect_client_count', [SalesClient::STATUS_PROSPECT])
+            ->selectRaw('COALESCE(SUM(CASE WHEN status = ? THEN 1 ELSE 0 END), 0) as negotiation_client_count', [SalesClient::STATUS_NEGOTIATION])
+            ->selectRaw('COALESCE(SUM(CASE WHEN status = ? THEN 1 ELSE 0 END), 0) as deal_client_count', [SalesClient::STATUS_DEAL])
+            ->selectRaw('COALESCE(SUM(CASE WHEN status = ? THEN 1 ELSE 0 END), 0) as follow_up_client_count', [SalesClient::STATUS_FOLLOW_UP])
+            ->first();
+
         return view('admin.dashboard', [
             'memberCount' => User::query()->where('role', 'customer')->count(),
             'productCount' => Product::query()->count(),
+            'articleCount' => Article::query()->count(),
+            'publishedArticleCount' => Article::query()->where('is_published', true)->count(),
             'pendingOrders' => (int) ($orderSummary->pending_order_count ?? 0),
+            'salesClientCount' => (int) ($salesClientSummary->total_client_count ?? 0),
+            'prospectClientCount' => (int) ($salesClientSummary->prospect_client_count ?? 0),
+            'negotiationClientCount' => (int) ($salesClientSummary->negotiation_client_count ?? 0),
+            'dealClientCount' => (int) ($salesClientSummary->deal_client_count ?? 0),
+            'followUpClientCount' => (int) ($salesClientSummary->follow_up_client_count ?? 0),
+            'dueFollowUpClientCount' => SalesClient::query()
+                ->whereNotNull('next_follow_up_at')
+                ->whereDate('next_follow_up_at', '<=', $now->toDateString())
+                ->count(),
             'totalRevenue' => $totalRevenue,
             'paidRevenue' => $totalRevenue,
             'totalOrderCount' => $totalOrderCount,
@@ -60,6 +100,11 @@ class DashboardController extends Controller
             'weekOrderCount' => $weekSales['orders'],
             'dailySalesChart' => $this->dailySalesChart($now, $paidOrdersForCharts),
             'weeklySalesChart' => $this->weeklySalesChart($now, $paidOrdersForCharts),
+            'segmentationFilters' => [
+                'segment_start' => $segmentStart?->toDateString(),
+                'segment_end' => $segmentEnd?->toDateString(),
+            ],
+            'customerSegmentation' => $this->customerSegmentationService->analyze($segmentationAsOf, $segmentStart, $segmentEnd),
             'topProducts' => OrderItem::query()
                 ->join('orders', 'orders.id', '=', 'order_items.order_id')
                 ->selectRaw('order_items.product_name, SUM(order_items.quantity) as total_quantity, SUM(order_items.subtotal) as total_revenue')
@@ -73,6 +118,16 @@ class DashboardController extends Controller
                 ->with('order:id,order_number,customer_name,total_amount,status,payment_status')
                 ->latest()
                 ->take(6)
+                ->get(),
+            'salesActivities' => SalesActivity::query()
+                ->select(['id', 'sales_client_id', 'user_id', 'activity_date', 'status', 'description', 'next_follow_up_at', 'created_at'])
+                ->with([
+                    'client:id,business_name,business_type,phone,status',
+                    'user:id,name',
+                ])
+                ->latest('activity_date')
+                ->latest()
+                ->take(8)
                 ->get(),
             'lowStockProducts' => Product::query()
                 ->select(['id', 'name', 'slug', 'stock', 'unit'])

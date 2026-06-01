@@ -9,10 +9,9 @@
             @csrf
             @include('admin.members._form', ['member' => $member])
             <div class="flex items-center gap-2">
-                <button class="btn-primary px-4 py-2 text-[10px]" type="submit">Simpan</button>
-                <a href="{{ route('admin.members.index') }}" class="btn-outline px-4 py-2 text-[10px]">Batal</a>
+                <button class="admin-btn-save px-4 py-2 text-[10px]" type="submit">Simpan</button>
+                <a href="{{ route('admin.members.index') }}" class="admin-btn-neutral px-4 py-2 text-[10px]">Batal</a>
             </div>
         </form>
     </div>
 @endsection
-

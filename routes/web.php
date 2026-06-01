@@ -1,22 +1,78 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\HomeContentController as AdminHomeContentController;
 use App\Http\Controllers\Admin\InventoryController as AdminInventoryController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\SalesClientController as AdminSalesClientController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MidtransWebhookController;
+use App\Models\Article;
+use App\Models\HomeContent;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home')->name('home');
+Route::get('/', function () {
+    $homeCms = HomeContent::values();
+    $homeCmsDefaults = HomeContent::defaultValues();
+    $homeArticles = Article::query()
+        ->published()
+        ->select(['id', 'title', 'slug', 'category', 'image_url', 'excerpt', 'published_at'])
+        ->latest('published_at')
+        ->take(5)
+        ->get()
+        ->map(fn (Article $article): array => [
+            'title' => $article->title,
+            'category' => $article->category,
+            'image_url' => $article->image_url ?: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1400&q=80',
+            'excerpt' => $article->excerpt,
+            'url' => route('articles.show', $article),
+        ]);
+
+    return view('home', [
+        'homeCms' => $homeCms,
+        'homeCmsDefaults' => $homeCmsDefaults,
+        'homeArticles' => $homeArticles,
+    ]);
+})->name('home');
 Route::view('/profil', 'profile')->name('profile');
 Route::view('/visi-misi', 'vision-mission')->name('vision_mission');
 Route::view('/ruang-lingkup', 'scope')->name('scope');
 Route::view('/kontak', 'contact')->name('contact');
+
+Route::get('/artikel', function () {
+    $articles = Article::query()
+        ->published()
+        ->select(['id', 'title', 'slug', 'category', 'image_url', 'excerpt', 'published_at'])
+        ->latest('published_at')
+        ->paginate(9);
+
+    return view('articles.index', [
+        'articles' => $articles,
+    ]);
+})->name('articles.index');
+
+Route::get('/artikel/{article:slug}', function (Article $article) {
+    abort_unless($article->is_published && ($article->published_at === null || $article->published_at->lessThanOrEqualTo(now())), 404);
+
+    $relatedArticles = Article::query()
+        ->published()
+        ->select(['id', 'title', 'slug', 'category', 'image_url', 'excerpt', 'published_at'])
+        ->whereKeyNot($article->id)
+        ->latest('published_at')
+        ->take(3)
+        ->get();
+
+    return view('articles.show', [
+        'article' => $article,
+        'relatedArticles' => $relatedArticles,
+    ]);
+})->name('articles.show');
 
 Route::get('/produk', function () {
     $products = Product::query()
@@ -72,8 +128,17 @@ Route::prefix('admin')
         Route::resource('members', AdminMemberController::class)
             ->except(['show']);
 
+        Route::resource('sales-clients', AdminSalesClientController::class)
+            ->except(['show']);
+
         Route::resource('products', AdminProductController::class)
             ->except(['show']);
+
+        Route::resource('articles', AdminArticleController::class)
+            ->except(['show']);
+
+        Route::get('/home-content', [AdminHomeContentController::class, 'edit'])->name('home-content.edit');
+        Route::put('/home-content', [AdminHomeContentController::class, 'update'])->name('home-content.update');
 
         Route::resource('orders', AdminOrderController::class)
             ->only(['index', 'show', 'update']);

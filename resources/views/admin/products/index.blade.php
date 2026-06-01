@@ -7,9 +7,9 @@
     <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <form method="GET" class="flex w-full max-w-md items-center gap-2">
             <input name="q" value="{{ $search }}" placeholder="Cari nama, kategori, slug..." class="h-10 w-full rounded-xl border border-slate-200 px-4 text-sm">
-            <button class="btn-outline px-4 py-2 text-[10px]" type="submit">Cari</button>
+            <button class="admin-btn-neutral px-4 py-2 text-[10px]" type="submit">Cari</button>
         </form>
-        <a href="{{ route('admin.products.create') }}" class="btn-primary px-4 py-2 text-[10px]">Tambah Produk</a>
+        <a href="{{ route('admin.products.create') }}" class="admin-btn-save px-4 py-2 text-[10px]">Tambah Produk</a>
     </div>
 
     <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
@@ -43,11 +43,11 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-2">
-                                <a href="{{ route('admin.products.edit', $product) }}" class="btn-outline px-3 py-2 text-[10px]">Edit</a>
+                                <a href="{{ route('admin.products.edit', $product) }}" class="admin-btn-edit px-3 py-2 text-[10px]">Edit</a>
                                 <form method="POST" action="{{ route('admin.products.destroy', $product) }}" onsubmit="return confirm('Hapus produk ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-outline px-3 py-2 text-[10px]" type="submit">Hapus</button>
+                                    <button class="admin-btn-delete px-3 py-2 text-[10px]" type="submit">Hapus</button>
                                 </form>
                             </div>
                         </td>
@@ -65,4 +65,3 @@
         {{ $products->links() }}
     </div>
 @endsection
-

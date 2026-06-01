@@ -7,9 +7,9 @@
     <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <form method="GET" class="flex w-full max-w-md items-center gap-2">
             <input name="q" value="{{ $search }}" placeholder="Cari nama, email, no hp..." class="h-10 w-full rounded-xl border border-slate-200 px-4 text-sm">
-            <button class="btn-outline px-4 py-2 text-[10px]" type="submit">Cari</button>
+            <button class="admin-btn-neutral px-4 py-2 text-[10px]" type="submit">Cari</button>
         </form>
-        <a href="{{ route('admin.members.create') }}" class="btn-primary px-4 py-2 text-[10px]">Tambah Member</a>
+        <a href="{{ route('admin.members.create') }}" class="admin-btn-save px-4 py-2 text-[10px]">Tambah Member</a>
     </div>
 
     <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
@@ -34,11 +34,11 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-2">
-                                <a href="{{ route('admin.members.edit', $member) }}" class="btn-outline px-3 py-2 text-[10px]">Edit</a>
+                                <a href="{{ route('admin.members.edit', $member) }}" class="admin-btn-edit px-3 py-2 text-[10px]">Edit</a>
                                 <form method="POST" action="{{ route('admin.members.destroy', $member) }}" onsubmit="return confirm('Hapus member ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-outline px-3 py-2 text-[10px]" type="submit">Hapus</button>
+                                    <button class="admin-btn-delete px-3 py-2 text-[10px]" type="submit">Hapus</button>
                                 </form>
                             </div>
                         </td>
@@ -56,4 +56,3 @@
         {{ $members->links() }}
     </div>
 @endsection
-

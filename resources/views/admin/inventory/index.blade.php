@@ -36,7 +36,7 @@
                     <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.15em] text-slate-500" for="note">Catatan</label>
                     <textarea id="note" name="note" rows="3" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm">{{ old('note') }}</textarea>
                 </div>
-                <button class="btn-primary w-full justify-center" type="submit">Simpan Perubahan</button>
+                <button class="admin-btn-save w-full justify-center" type="submit">Simpan Perubahan</button>
             </form>
         </section>
 
@@ -50,7 +50,7 @@
                             <option value="{{ $product->id }}" @selected((string) $selectedProductId === (string) $product->id)>{{ $product->name }}</option>
                         @endforeach
                     </select>
-                    <button class="btn-outline px-4 py-2 text-[10px]" type="submit">Filter</button>
+                    <button class="admin-btn-neutral px-4 py-2 text-[10px]" type="submit">Filter</button>
                 </form>
             </div>
 
@@ -91,4 +91,3 @@
         </section>
     </div>
 @endsection
-

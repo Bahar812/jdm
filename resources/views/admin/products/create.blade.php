@@ -9,10 +9,9 @@
             @csrf
             @include('admin.products._form', ['product' => $product])
             <div class="flex items-center gap-2">
-                <button class="btn-primary px-4 py-2 text-[10px]" type="submit">Simpan</button>
-                <a href="{{ route('admin.products.index') }}" class="btn-outline px-4 py-2 text-[10px]">Batal</a>
+                <button class="admin-btn-save px-4 py-2 text-[10px]" type="submit">Simpan</button>
+                <a href="{{ route('admin.products.index') }}" class="admin-btn-neutral px-4 py-2 text-[10px]">Batal</a>
             </div>
         </form>
     </div>
 @endsection
-

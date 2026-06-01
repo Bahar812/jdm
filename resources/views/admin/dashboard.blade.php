@@ -25,7 +25,279 @@
             <p class="mt-2 text-3xl font-bold text-slate-900">Rp {{ number_format($weekRevenue, 0, ',', '.') }}</p>
             <p class="mt-2 text-xs text-slate-500">{{ number_format($weekOrderCount) }} order lunas</p>
         </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Client Sales</p>
+            <p class="mt-2 text-3xl font-bold text-slate-900">{{ number_format($salesClientCount) }}</p>
+            <p class="mt-2 text-xs text-slate-500">{{ number_format($dealClientCount) }} deal, {{ number_format($prospectClientCount) }} prospek</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Follow Up Sales</p>
+            <p class="mt-2 text-3xl font-bold text-amber-600">{{ number_format($dueFollowUpClientCount) }}</p>
+            <p class="mt-2 text-xs text-slate-500">{{ number_format($followUpClientCount) }} client berstatus follow up</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Artikel</p>
+            <p class="mt-2 text-3xl font-bold text-slate-900">{{ number_format($articleCount) }}</p>
+            <p class="mt-2 text-xs text-slate-500">{{ number_format($publishedArticleCount) }} publish di website</p>
+        </div>
     </div>
+
+    <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-5">
+        @php
+            $rfmBadgeClasses = [
+                'High Value Customer' => 'bg-emerald-100 text-emerald-700',
+                'High Value Risiko Churn' => 'bg-amber-100 text-amber-700',
+                'Pelanggan Potensial' => 'bg-cyan-100 text-cyan-700',
+                'Pelanggan Baru Aktif' => 'bg-sky-100 text-sky-700',
+                'Pembeli Rutin Hemat' => 'bg-violet-100 text-violet-700',
+                'Pelanggan Jarang Beli' => 'bg-rose-100 text-rose-700',
+                'Perlu Retensi' => 'bg-rose-100 text-rose-700',
+            ];
+        @endphp
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900">Segmentasi Pelanggan RFM</h2>
+                <p class="mt-1 text-sm text-slate-500">Analisis pola pembelian dari order lunas memakai normalisasi RFM dan clustering K-Means.</p>
+                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Periode {{ $customerSegmentation['period']['label'] }}</p>
+            </div>
+            <div class="w-full space-y-3 lg:w-auto">
+                <div class="flex flex-wrap gap-2 lg:justify-end">
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-600">
+                        Cluster {{ number_format($customerSegmentation['clusterCount']) }}
+                    </span>
+                    <span class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                        Silhouette {{ number_format($customerSegmentation['silhouetteScore'], 3) }}
+                    </span>
+                </div>
+                <form method="GET" action="{{ route('admin.dashboard') }}" class="grid gap-2 sm:grid-cols-[1fr_1fr_auto_auto]">
+                    <input
+                        type="date"
+                        name="segment_start"
+                        value="{{ $segmentationFilters['segment_start'] }}"
+                        class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-slate-500"
+                        aria-label="Tanggal mulai segmentasi"
+                    >
+                    <input
+                        type="date"
+                        name="segment_end"
+                        value="{{ $segmentationFilters['segment_end'] }}"
+                        class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-slate-500"
+                        aria-label="Tanggal akhir segmentasi"
+                    >
+                    <button type="submit" class="rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white hover:bg-slate-700">Filter</button>
+                    <a href="{{ route('admin.dashboard') }}" class="rounded-xl border border-slate-200 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 hover:border-slate-400">Reset</a>
+                </form>
+            </div>
+        </div>
+
+        @if ($customerSegmentation['totalCustomers'] === 0)
+            <p class="mt-5 rounded-xl bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+                Segmentasi akan tampil setelah ada order lunas dari pelanggan pada periode yang dipilih.
+            </p>
+        @else
+            <div class="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                <div class="rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3">
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-indigo-700">Customer Dianalisis</p>
+                    <p class="mt-1 text-2xl font-bold text-indigo-950">{{ number_format($customerSegmentation['totalCustomers']) }}</p>
+                </div>
+                <div class="rounded-xl border border-amber-100 bg-amber-50 px-4 py-3">
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">Rata-rata Frekuensi</p>
+                    <p class="mt-1 text-2xl font-bold text-amber-950">{{ number_format($customerSegmentation['averages']['frequency'], 1, ',', '.') }} order</p>
+                </div>
+                <div class="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3">
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">Rata-rata Monetary</p>
+                    <p class="mt-1 text-2xl font-bold text-emerald-950">Rp {{ number_format($customerSegmentation['averages']['monetary'], 0, ',', '.') }}</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">Transaksi Tertinggi</p>
+                    <p class="mt-1 truncate text-lg font-bold text-slate-950">{{ $customerSegmentation['topCustomer']['customer_name'] }}</p>
+                    <p class="mt-1 text-sm font-semibold text-slate-700">Rp {{ number_format($customerSegmentation['topCustomer']['monetary'], 0, ',', '.') }}</p>
+                </div>
+            </div>
+
+            <div class="mt-5 rounded-xl border border-slate-100 px-4 py-4">
+                <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900">Distribusi Customer per Cluster</h3>
+                        <p class="mt-1 text-xs text-slate-500">Proporsi jumlah customer dan kontribusi revenue pada setiap segmentasi.</p>
+                    </div>
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                        {{ number_format($customerSegmentation['totalCustomers']) }} customer
+                    </span>
+                </div>
+                <div class="mt-4 space-y-4">
+                    @foreach ($customerSegmentation['clusterDistribution'] as $distribution)
+                        <div class="grid gap-2 lg:grid-cols-[190px_1fr_120px] lg:items-center">
+                            <div>
+                                <p class="text-sm font-bold text-slate-900">Cluster {{ $distribution['cluster_number'] }}</p>
+                                <p class="mt-1 text-xs text-slate-500">{{ $distribution['label'] }}</p>
+                            </div>
+                            <div>
+                                <div class="h-3 overflow-hidden rounded-full bg-slate-100">
+                                    <div
+                                        class="h-3 rounded-full bg-slate-900"
+                                        style="width: {{ max(4, $distribution['customer_share']) }}%;"
+                                    ></div>
+                                </div>
+                                <p class="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+                                    Revenue {{ number_format($distribution['revenue_share'], 1, ',', '.') }}%
+                                </p>
+                            </div>
+                            <div class="lg:text-right">
+                                <p class="text-sm font-bold text-slate-900">{{ number_format($distribution['customer_count']) }} customer</p>
+                                <p class="mt-1 text-xs text-slate-500">{{ number_format($distribution['customer_share'], 1, ',', '.') }}%</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                @foreach ($customerSegmentation['segments'] as $segment)
+                    <div class="rounded-xl border border-slate-100 px-4 py-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <span class="rounded-full {{ $rfmBadgeClasses[$segment['label']] ?? 'bg-slate-100 text-slate-700' }} px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em]">
+                                    Cluster {{ $segment['cluster_number'] }}
+                                </span>
+                                <h3 class="mt-3 text-base font-bold text-slate-900">{{ $segment['label'] }}</h3>
+                                <p class="mt-1 text-xs text-slate-500">{{ number_format($segment['customer_count']) }} customer</p>
+                            </div>
+                            <p class="text-right text-sm font-bold text-slate-900">Rp {{ number_format($segment['total_revenue'], 0, ',', '.') }}</p>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                            <div class="rounded-lg bg-slate-50 px-2 py-2">
+                                <p class="font-semibold text-slate-500">Recency</p>
+                                <p class="mt-1 font-bold text-slate-900">{{ number_format($segment['avg_recency'], 1, ',', '.') }} hr</p>
+                            </div>
+                            <div class="rounded-lg bg-slate-50 px-2 py-2">
+                                <p class="font-semibold text-slate-500">Frequency</p>
+                                <p class="mt-1 font-bold text-slate-900">{{ number_format($segment['avg_frequency'], 1, ',', '.') }}x</p>
+                            </div>
+                            <div class="rounded-lg bg-slate-50 px-2 py-2">
+                                <p class="font-semibold text-slate-500">Monetary</p>
+                                <p class="mt-1 font-bold text-slate-900">Rp {{ number_format($segment['avg_monetary'], 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 rounded-lg bg-slate-50 px-3 py-3">
+                            <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">Strategi Marketing</p>
+                            <p class="mt-1 text-sm font-bold text-slate-900">{{ $segment['strategy_title'] }}</p>
+                            <p class="mt-2 text-xs leading-5 text-slate-500">{{ $segment['recommendation'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            @if (! empty($customerSegmentation['testedClusterScores']))
+                <div class="mt-5 flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Uji Silhouette</span>
+                    @foreach ($customerSegmentation['testedClusterScores'] as $clusterScore)
+                        <span class="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">
+                            K={{ $clusterScore['cluster_count'] }}: {{ number_format($clusterScore['score'], 3) }}
+                        </span>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="mt-5 overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-slate-200 text-left text-xs uppercase tracking-[0.14em] text-slate-500">
+                            <th class="px-3 py-3">Customer</th>
+                            <th class="px-3 py-3">Segment</th>
+                            <th class="px-3 py-3">Recency</th>
+                            <th class="px-3 py-3">Frequency</th>
+                            <th class="px-3 py-3">Monetary</th>
+                            <th class="px-3 py-3">RFM</th>
+                            <th class="px-3 py-3">Order Terakhir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($customerSegmentation['customers']->take(10) as $customer)
+                            <tr class="border-b border-slate-100">
+                                <td class="px-3 py-3">
+                                    <p class="font-semibold text-slate-900">{{ $customer['customer_name'] }}</p>
+                                    <p class="mt-1 text-xs text-slate-500">{{ $customer['customer_phone'] ?: $customer['customer_email'] }}</p>
+                                </td>
+                                <td class="px-3 py-3">
+                                    <span class="rounded-full {{ $rfmBadgeClasses[$customer['segment_label']] ?? 'bg-slate-100 text-slate-700' }} px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em]">
+                                        Cluster {{ $customer['cluster_number'] }}
+                                    </span>
+                                    <p class="mt-1 text-xs text-slate-500">{{ $customer['segment_label'] }}</p>
+                                </td>
+                                <td class="px-3 py-3 text-slate-600">{{ number_format($customer['recency']) }} hari</td>
+                                <td class="px-3 py-3 text-slate-600">{{ number_format($customer['frequency']) }} order</td>
+                                <td class="px-3 py-3 font-semibold text-slate-900">Rp {{ number_format($customer['monetary'], 0, ',', '.') }}</td>
+                                <td class="px-3 py-3 text-slate-600">
+                                    R{{ $customer['rfm']['recency_score'] }}
+                                    F{{ $customer['rfm']['frequency_score'] }}
+                                    M{{ $customer['rfm']['monetary_score'] }}
+                                </td>
+                                <td class="px-3 py-3 text-slate-600">{{ $customer['last_order_at']->format('d M Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </section>
+
+    <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-5">
+        <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900">Monitoring Aktivitas Sales</h2>
+                <p class="mt-1 text-sm text-slate-500">Aktivitas terbaru dari client resto dan cafe.</p>
+            </div>
+            <a href="{{ route('admin.sales-clients.index') }}" class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500 hover:text-slate-900">Lihat Semua</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200 text-left text-xs uppercase tracking-[0.14em] text-slate-500">
+                        <th class="px-3 py-3">Client</th>
+                        <th class="px-3 py-3">Jenis</th>
+                        <th class="px-3 py-3">Status</th>
+                        <th class="px-3 py-3">Aktivitas</th>
+                        <th class="px-3 py-3">Follow Up</th>
+                        <th class="px-3 py-3">Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($salesActivities as $activity)
+                        @php
+                            $client = $activity->client;
+
+                            if (! $client) {
+                                continue;
+                            }
+                        @endphp
+                        <tr class="border-b border-slate-100">
+                            <td class="px-3 py-3">
+                                <a href="{{ route('admin.sales-clients.edit', $client) }}" class="font-semibold text-slate-900 hover:underline">{{ $client->business_name }}</a>
+                                <p class="mt-1 text-xs text-slate-500">{{ $client->phone ?: '-' }}</p>
+                            </td>
+                            <td class="px-3 py-3 text-slate-600">{{ \App\Models\SalesClient::businessTypeLabel($client->business_type) }}</td>
+                            <td class="px-3 py-3">
+                                <span class="rounded-full {{ \App\Models\SalesClient::statusBadgeClass($activity->status) }} px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em]">
+                                    {{ \App\Models\SalesClient::statusLabel($activity->status) }}
+                                </span>
+                            </td>
+                            <td class="px-3 py-3 text-slate-600">
+                                <p>{{ \Illuminate\Support\Str::limit($activity->description ?: '-', 80) }}</p>
+                                <p class="mt-1 text-[10px] uppercase tracking-[0.12em] text-slate-400">{{ $activity->activity_date?->format('d M Y') }}</p>
+                            </td>
+                            <td class="px-3 py-3 text-slate-600">{{ $activity->next_follow_up_at?->format('d M Y') ?: '-' }}</td>
+                            <td class="px-3 py-3 text-slate-600">{{ $activity->user?->name ?: '-' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-3 py-8 text-center text-slate-500">Belum ada aktivitas sales.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <div class="mt-6 grid gap-6 xl:grid-cols-[1.35fr_0.65fr]">
         <section class="rounded-2xl border border-slate-200 bg-white p-5">
@@ -208,7 +480,7 @@
                                 </td>
                                 <td class="px-3 py-3">
                                     @if ($order->isPaid())
-                                        <a href="{{ route('admin.orders.invoice', $order) }}" class="btn-outline px-3 py-2 text-[10px]">PDF</a>
+                                        <a href="{{ route('admin.orders.invoice', $order) }}" class="admin-btn-neutral px-3 py-2 text-[10px]">PDF</a>
                                     @else
                                         <span class="text-xs text-slate-400">-</span>
                                     @endif
@@ -247,6 +519,10 @@
                     <div class="rounded-xl bg-slate-50 px-3 py-3">
                         <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">Produk</p>
                         <p class="mt-1 text-xl font-bold text-slate-900">{{ number_format($productCount) }}</p>
+                    </div>
+                    <div class="rounded-xl bg-slate-50 px-3 py-3">
+                        <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">Artikel</p>
+                        <p class="mt-1 text-xl font-bold text-slate-900">{{ number_format($articleCount) }}</p>
                     </div>
                     <div class="rounded-xl bg-amber-50 px-3 py-3">
                         <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-700">Pending</p>

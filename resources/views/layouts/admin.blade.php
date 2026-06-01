@@ -24,8 +24,17 @@
                     <a href="{{ route('admin.members.index') }}" class="{{ request()->routeIs('admin.members.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
                         Member
                     </a>
+                    <a href="{{ route('admin.sales-clients.index') }}" class="{{ request()->routeIs('admin.sales-clients.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
+                        Client Sales
+                    </a>
                     <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
                         Produk
+                    </a>
+                    <a href="{{ route('admin.articles.index') }}" class="{{ request()->routeIs('admin.articles.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
+                        Artikel
+                    </a>
+                    <a href="{{ route('admin.home-content.edit') }}" class="{{ request()->routeIs('admin.home-content.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
+                        CMS Home
                     </a>
                     <a href="{{ route('admin.orders.index') }}" class="{{ request()->routeIs('admin.orders.*') ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100' }} flex items-center rounded-xl px-4 py-3 text-sm font-semibold">
                         Order Masuk
@@ -48,7 +57,7 @@
                         <h1 class="mt-1 text-2xl font-bold text-slate-900 md:text-3xl">@yield('admin_title', 'Admin Dashboard')</h1>
                     </div>
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('home') }}" class="btn-outline px-4 py-2 text-[10px]">Lihat Website</a>
+                        <a href="{{ route('home') }}" class="admin-btn-neutral px-4 py-2 text-[10px]">Lihat Website</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button class="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white hover:bg-slate-700" type="submit">
@@ -79,4 +88,3 @@
         </div>
     </body>
 </html>
-

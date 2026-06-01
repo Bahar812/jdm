@@ -5,14 +5,13 @@
         ['key' => 'home', 'label' => 'Beranda', 'route' => 'home'],
         ['key' => 'products', 'label' => 'Produk', 'route' => 'products'],
         ['key' => 'vision_mission', 'label' => 'Visi & Misi', 'route' => 'vision_mission'],
-        ['key' => 'scope', 'label' => 'Ruang Lingkup', 'route' => 'scope'],
         ['key' => 'contact', 'label' => 'Kontak', 'route' => 'contact'],
     ];
     $cartRaw = session('shopping_cart', []);
     $cartItemCount = is_array($cartRaw) ? array_sum(array_map('intval', $cartRaw)) : 0;
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-red-100/70 bg-white/85 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-red-100/70 bg-white/90 text-slate-950 shadow-sm backdrop-blur">
     <div class="relative mx-auto flex w-full max-w-[1360px] items-center px-5 py-4 lg:px-4">
         <a class="flex items-center gap-3" href="{{ route('home') }}">
             <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--brand-red)] text-white">
@@ -53,7 +52,7 @@
                 <a class="order-1 btn-primary" href="{{ route('login') }}">Login</a>
             @endauth
             <a
-                class="order-2 ml-3 inline-flex h-14 w-14 items-center justify-center text-black transition hover:text-slate-700 relative"
+                class="order-2 ml-3 inline-flex h-14 w-14 items-center justify-center text-black transition hover:text-[color:var(--brand-red)] relative"
                 href="{{ route('cart') }}"
                 aria-label="Keranjang"
             >

@@ -18,7 +18,7 @@
                 <option value="{{ $item }}" @selected($payment === $item)>{{ \App\Models\Order::paymentStatusLabel($item) }}</option>
             @endforeach
         </select>
-        <button class="btn-outline px-4 py-2 text-[10px]" type="submit">Filter</button>
+        <button class="admin-btn-neutral px-4 py-2 text-[10px]" type="submit">Filter</button>
     </form>
 
     <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
@@ -55,20 +55,20 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap gap-2">
-                                <a href="{{ route('admin.orders.show', $order) }}" class="btn-outline px-3 py-2 text-[10px]">Detail</a>
+                                <a href="{{ route('admin.orders.show', $order) }}" class="admin-btn-neutral px-3 py-2 text-[10px]">Detail</a>
                                 @if ($order->nextFulfillmentStatus())
                                     <form action="{{ route('admin.orders.update', $order) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="status" value="{{ $order->nextFulfillmentStatus() }}">
                                         <input type="hidden" name="payment_status" value="{{ $order->payment_status }}">
-                                        <button class="btn-outline px-3 py-2 text-[10px]" type="submit">
+                                        <button class="admin-btn-save px-3 py-2 text-[10px]" type="submit">
                                             {{ \App\Models\Order::statusLabel($order->nextFulfillmentStatus()) }}
                                         </button>
                                     </form>
                                 @endif
                                 @if ($order->isPaid())
-                                    <a href="{{ route('admin.orders.invoice', $order) }}" class="btn-primary px-3 py-2 text-[10px]">Invoice PDF</a>
+                                    <a href="{{ route('admin.orders.invoice', $order) }}" class="admin-btn-neutral px-3 py-2 text-[10px]">Invoice PDF</a>
                                 @endif
                             </div>
                         </td>

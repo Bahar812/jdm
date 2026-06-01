@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 @if ($order->isPaid())
-                    <a href="{{ route('admin.orders.invoice', $order) }}" class="btn-primary px-4 py-2 text-[10px]">
+                    <a href="{{ route('admin.orders.invoice', $order) }}" class="admin-btn-neutral px-4 py-2 text-[10px]">
                         Download Invoice PDF
                     </a>
                 @endif
@@ -69,7 +69,7 @@
                     <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.15em] text-slate-500" for="notes">Catatan</label>
                     <textarea id="notes" name="notes" rows="3" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm">{{ old('notes', $order->notes) }}</textarea>
                 </div>
-                <button class="btn-primary w-full justify-center" type="submit">Simpan Perubahan</button>
+                <button class="admin-btn-save w-full justify-center" type="submit">Simpan Perubahan</button>
             </form>
         </aside>
     </div>
