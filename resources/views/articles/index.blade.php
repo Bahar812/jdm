@@ -6,8 +6,8 @@
 
         <main>
             <section class="border-b border-red-100/70 bg-white">
-                <div class="mx-auto max-w-6xl px-6 py-14 md:py-20">
-                    <p class="text-xs font-semibold uppercase tracking-[0.45em] text-[color:var(--brand-red)]">Artikel</p>
+                <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-20">
+                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)] sm:tracking-[0.45em]">Artikel</p>
                     <div class="mt-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                         <div class="max-w-3xl">
                             <h1 class="font-display text-[clamp(3rem,7vw,6rem)] uppercase leading-none text-black">Berita & Artikel</h1>
@@ -15,13 +15,13 @@
                                 Update informasi produk frozen food, tips memilih bahan baku, dan kabar layanan JDM Frozen Food.
                             </p>
                         </div>
-                        <a href="{{ route('home') }}#artikel" class="btn-outline px-5 py-3 text-[10px]">Kembali</a>
+                        <a href="{{ route('home') }}#artikel" class="btn-outline justify-center px-5 py-3 text-[10px]">Kembali</a>
                     </div>
                 </div>
             </section>
 
             <section class="bg-white">
-                <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+                <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @forelse ($articles as $article)
                             @php

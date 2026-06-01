@@ -78,7 +78,7 @@
 
         <main>
             <section id="profile" class="relative border-y border-red-100/70 bg-white text-slate-950">
-                <div class="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-6 py-16 md:grid-cols-2 md:px-8 md:py-20">
+                <div class="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-4 py-14 sm:px-6 md:grid-cols-2 md:px-8 md:py-20">
                     <div class="about-content">
                         <p class="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--brand-red)] md:text-sm">
                             {{ $cms('profile_kicker') }}
@@ -127,7 +127,7 @@
 
             <section id="produk" class="product-focus-section relative overflow-hidden border-y border-red-100/70 bg-slate-50 text-slate-950">
                 <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(229,9,20,0.08),transparent_42%)]"></div>
-                <div class="relative mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="mb-10 text-center">
                         <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--brand-red)] md:text-sm">
                             {{ $cms('products_kicker') }}
@@ -195,7 +195,7 @@
             </section>
 
             <section class="ready-stock-section relative overflow-hidden border-b border-red-100/70 bg-white text-slate-950">
-                <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="mx-auto max-w-3xl text-center">
                         <h2 class="font-display text-5xl uppercase leading-none text-black sm:text-6xl">
                             {{ $cms('advantages_title') }}
@@ -224,7 +224,7 @@
             </section>
 
             <section id="visi-misi" class="relative overflow-hidden border-y border-red-100/70 bg-white text-slate-950">
-                <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="mx-auto max-w-3xl text-center">
                         <p class="text-xs font-semibold uppercase tracking-[0.4em] text-[color:var(--brand-red)]">{{ $cms('vision_kicker') }}</p>
                         <h2 class="mt-3 font-display text-[clamp(2.5rem,5vw,4.8rem)] uppercase leading-[0.95] text-black">
@@ -306,7 +306,7 @@
             </section>
 
             <section id="testimonials" class="testimonial-section relative overflow-hidden border-b border-red-100/70 bg-white text-slate-950">
-                <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="mx-auto max-w-3xl text-center">
                         <p class="text-xs font-semibold uppercase tracking-[0.4em] text-[color:var(--brand-red)]">
                             {{ $cms('testimonials_kicker') }}
@@ -414,7 +414,7 @@
             </section>
 
             <section class="relative border-t border-red-100/70 bg-white">
-                <div class="mx-auto max-w-6xl px-6 pb-8 pt-16 text-center md:pt-20">
+                <div class="mx-auto max-w-6xl px-4 pb-8 pt-14 text-center sm:px-6 md:pt-20">
                     <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--brand-red)] md:text-sm">
                         {{ $cms('gallery_kicker') }}
                     </p>
@@ -439,7 +439,7 @@
             </section>
 
             <section id="artikel" class="article-section relative border-y border-red-100/70 bg-white text-slate-950">
-                <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     @php
                         $articleItems = collect($homeArticles ?? [])->values();
 
@@ -540,7 +540,7 @@
             </section>
 
             <section id="instagram" class="instagram-section relative overflow-hidden border-b border-red-100/70 bg-slate-50 text-slate-950">
-                <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:py-20 lg:grid-cols-[0.78fr_1.22fr]">
+                <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[0.78fr_1.22fr]">
                     <div class="instagram-copy">
                         <p class="text-xs font-semibold uppercase tracking-[0.55em] text-slate-500">
                             {{ $cms('instagram_kicker') }}
@@ -573,7 +573,7 @@
             </section>
 
             <section id="contact" class="relative bg-white text-slate-950">
-                <div class="mx-auto max-w-6xl px-6 pb-20 pt-16">
+                <div class="mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6 md:pt-16">
                     <div class="mb-10 max-w-3xl">
                         <p class="text-xs font-semibold uppercase tracking-[0.4em] text-[color:var(--brand-red)]">
                             {{ $cms('contact_kicker') }}
@@ -613,15 +613,15 @@
                                     {{ $cms('contact_google_description') }}
                                 </p>
                             </div>
-                            <div class="mt-6 flex flex-wrap gap-3">
-                                <a class="btn-primary" href="mailto:{{ $contactEmail }}">{{ $cms('contact_email_button_label') }}</a>
-                                <a class="btn-outline" href="tel:{{ $contactPhone }}">{{ $cms('contact_phone_button_label') }}</a>
-                                <a class="btn-outline" href="https://wa.me/{{ $whatsappNumber }}">{{ $cms('contact_whatsapp_button_label') }}</a>
+                            <div class="mt-6 grid gap-3 sm:flex sm:flex-wrap">
+                                <a class="btn-primary justify-center" href="mailto:{{ $contactEmail }}">{{ $cms('contact_email_button_label') }}</a>
+                                <a class="btn-outline justify-center" href="tel:{{ $contactPhone }}">{{ $cms('contact_phone_button_label') }}</a>
+                                <a class="btn-outline justify-center" href="https://wa.me/{{ $whatsappNumber }}">{{ $cms('contact_whatsapp_button_label') }}</a>
                             </div>
                         </div>
                         <div class="overflow-hidden rounded-3xl border border-red-100/70 bg-white shadow-[0_40px_70px_-52px_rgba(125,12,20,0.42)]">
                             <iframe
-                                class="h-full min-h-[28rem] w-full"
+                                class="h-80 w-full md:h-full md:min-h-[28rem]"
                                 src="{{ $cms('contact_map_src') }}"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"

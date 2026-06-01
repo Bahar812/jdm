@@ -239,6 +239,24 @@
         color: var(--brand-text);
     }
 
+    .home-page h1,
+    .home-page h2,
+    .home-page h3,
+    .home-page p,
+    .home-page a,
+    .home-page span,
+    main h1,
+    main h2,
+    main h3 {
+        overflow-wrap: anywhere;
+    }
+
+    [data-site-nav-menu] {
+        max-height: calc(100dvh - 6rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
     .about-content > * {
         animation: fade-up 0.72s ease both;
     }

@@ -15,10 +15,10 @@
 
         <main>
             <section class="relative pb-16">
-                <div class="mx-auto max-w-7xl px-6 pb-10 pt-14 md:pb-12 md:pt-20">
+                <div class="mx-auto max-w-7xl px-4 pb-10 pt-12 sm:px-6 md:pb-12 md:pt-20">
                     <div class="max-w-4xl">
-                        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-[color:var(--brand-red)]">Produk Frozen Food</p>
-                        <h1 class="mt-5 font-display text-5xl uppercase leading-[0.95] text-[color:var(--brand-ink)] md:text-7xl">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--brand-red)] sm:tracking-[0.4em]">Produk Frozen Food</p>
+                        <h1 class="mt-5 break-words font-display text-5xl uppercase leading-[0.95] text-[color:var(--brand-ink)] md:text-7xl">
                             Katalog Produk
                         </h1>
                         <p class="mt-6 text-base leading-relaxed text-slate-700 md:text-lg">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[250px_1fr]">
+                <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[250px_1fr]">
                     <aside class="lg:sticky lg:top-28 lg:h-fit">
                         <div class="rounded-2xl border border-red-100/70 bg-white/95 p-5 shadow-[0_20px_50px_-38px_rgba(125,12,20,0.45)]">
                             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-red)]">Kategori</p>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div id="product-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        <div id="product-grid" class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                             @foreach ($products as $product)
                                 <article
                                     class="product-card h-full overflow-hidden rounded-3xl border border-red-100/70 bg-white shadow-[0_25px_60px_-42px_rgba(125,12,20,0.5)]"
@@ -103,7 +103,7 @@
                                                     By Request
                                                 @endif
                                             </p>
-                                            <div class="flex items-center gap-2">
+                                            <div class="flex flex-wrap items-center gap-2">
                                                 <a class="product-detail-btn inline-flex items-center rounded-full border border-[color:var(--brand-red-30)] bg-white font-semibold uppercase text-[color:var(--brand-red)] transition hover:border-[color:var(--brand-red)]" href="{{ route('product.detail', $product->slug) }}">
                                                     Detail
                                                 </a>

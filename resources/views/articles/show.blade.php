@@ -10,7 +10,7 @@
 
         <main>
             <article class="border-b border-red-100/70 bg-white">
-                <div class="mx-auto max-w-4xl px-6 py-12 md:py-16">
+                <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-16">
                     <a href="{{ route('articles.index') }}" class="inline-flex text-xs font-bold uppercase tracking-[0.22em] text-[color:var(--brand-red)]">Kembali ke artikel</a>
                     <p class="mt-8 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{{ $article->category }} · {{ $article->published_at?->format('d M Y') }}</p>
                     <h1 class="mt-4 break-words font-display text-[clamp(3rem,7vw,6.5rem)] uppercase leading-none text-black">{{ $article->title }}</h1>
@@ -19,11 +19,11 @@
                     @endif
                 </div>
 
-                <div class="mx-auto max-w-6xl px-6">
-                    <img class="aspect-[16/8] w-full rounded-2xl object-cover" src="{{ $imageUrl }}" alt="{{ $article->title }}" loading="lazy">
+                <div class="mx-auto max-w-6xl px-4 sm:px-6">
+                    <img class="aspect-[4/3] w-full rounded-2xl object-cover sm:aspect-[16/8]" src="{{ $imageUrl }}" alt="{{ $article->title }}" loading="lazy">
                 </div>
 
-                <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+                <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 md:py-16">
                     <div class="space-y-5 text-base leading-8 text-slate-700 md:text-lg">
                         {!! nl2br(e($article->content)) !!}
                     </div>
@@ -32,7 +32,7 @@
 
             @if ($relatedArticles->isNotEmpty())
                 <section class="bg-slate-50">
-                    <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+                    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">
                         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                             <div>
                                 <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--brand-red)]">Artikel</p>

@@ -4,7 +4,7 @@
     <div class="min-h-screen bg-slate-50">
         <x-navbar active-page="products" />
 
-        <main class="mx-auto max-w-5xl px-6 py-12">
+        <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 md:py-12">
             @if (session('success'))
                 <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
                     {{ session('success') }}
@@ -12,15 +12,15 @@
             @endif
 
             <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <section class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
                     <p class="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Order</p>
-                    <h1 class="mt-2 font-display text-4xl uppercase text-slate-900">{{ $order->order_number }}</h1>
-                    <p class="mt-2 text-sm text-slate-600">Status: <span class="font-semibold uppercase">{{ \App\Models\Order::statusLabel($order->status) }}</span> | Pembayaran: <span class="font-semibold uppercase">{{ \App\Models\Order::paymentStatusLabel($order->payment_status) }}</span></p>
+                    <h1 class="mt-2 break-words font-display text-4xl uppercase text-slate-900">{{ $order->order_number }}</h1>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">Status: <span class="font-semibold uppercase">{{ \App\Models\Order::statusLabel($order->status) }}</span> | Pembayaran: <span class="font-semibold uppercase">{{ \App\Models\Order::paymentStatusLabel($order->payment_status) }}</span></p>
 
                     <div class="mt-6 space-y-3">
                         @foreach ($order->items as $item)
-                            <div class="flex items-center justify-between rounded-xl border border-slate-100 px-4 py-3">
-                                <div>
+                            <div class="grid gap-3 rounded-xl border border-slate-100 px-4 py-3 sm:grid-cols-[1fr_auto] sm:items-center">
+                                <div class="min-w-0">
                                     <p class="font-semibold text-slate-900">{{ $item->product_name }}</p>
                                     <p class="text-xs uppercase tracking-[0.15em] text-slate-500">{{ $item->quantity }} x Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                                 </div>
@@ -34,7 +34,7 @@
                     <h2 class="font-display text-3xl uppercase text-slate-900">Pembayaran</h2>
                     <div class="mt-4 rounded-xl bg-slate-50 p-4">
                         <p class="text-sm text-slate-500">Total Tagihan</p>
-                        <p class="mt-1 text-2xl font-bold text-[color:var(--brand-red)]">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</p>
+                    <p class="mt-1 break-words text-2xl font-bold text-[color:var(--brand-red)]">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</p>
                     </div>
 
                     <div class="mt-6 space-y-3 text-sm text-slate-600">

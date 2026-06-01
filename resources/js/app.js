@@ -270,12 +270,52 @@ const initFocusRail = () => {
     });
 };
 
+const initMobileNav = () => {
+    const navRoots = Array.from(document.querySelectorAll('[data-site-nav]'));
+
+    navRoots.forEach((root) => {
+        const toggle = root.querySelector('[data-site-nav-toggle]');
+        const menu = root.querySelector('[data-site-nav-menu]');
+
+        if (!toggle || !menu) {
+            return;
+        }
+
+        const setOpen = (open) => {
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            menu.classList.toggle('hidden', !open);
+        };
+
+        toggle.addEventListener('click', () => {
+            setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        menu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => setOpen(false));
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!root.contains(event.target)) {
+                setOpen(false);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.matchMedia('(min-width: 768px)').matches) {
+                setOpen(false);
+            }
+        });
+    });
+};
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        initMobileNav();
         initHeroScroll();
         initFocusRail();
     }, { once: true });
 } else {
+    initMobileNav();
     initHeroScroll();
     initFocusRail();
 }

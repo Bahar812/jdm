@@ -10,12 +10,12 @@
 
         <main>
             <section class="relative">
-                <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="mb-10 max-w-3xl">
-                        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-[color:var(--brand-red)]">
+                        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)] sm:tracking-[0.4em]">
                             Hubungi Kami
                         </p>
-                        <h1 class="mt-4 font-display text-5xl uppercase tracking-[0.1em] text-[color:var(--brand-ink)] md:text-7xl">
+                        <h1 class="mt-4 break-words font-display text-5xl uppercase tracking-[0.06em] text-[color:var(--brand-ink)] md:text-7xl md:tracking-[0.1em]">
                             Siap Menjadi Mitra Anda
                         </h1>
                         <p class="mt-5 text-base leading-relaxed text-slate-700 md:text-lg">
@@ -51,16 +51,16 @@
                                     JDM Frozen Food, toko makanan beku. Buka sampai pukul 19.00.
                                 </p>
                             </div>
-                            <div class="mt-6 flex flex-wrap gap-3">
-                                <a class="btn-primary" href="mailto:juragandagingmorowali@gmail.com">Email Kami</a>
-                                <a class="btn-outline" href="tel:+628552268888">Telepon</a>
-                                <a class="btn-outline" href="https://wa.me/628552268888">WhatsApp</a>
+                            <div class="mt-6 grid gap-3 sm:flex sm:flex-wrap">
+                                <a class="btn-primary justify-center" href="mailto:juragandagingmorowali@gmail.com">Email Kami</a>
+                                <a class="btn-outline justify-center" href="tel:+628552268888">Telepon</a>
+                                <a class="btn-outline justify-center" href="https://wa.me/628552268888">WhatsApp</a>
                             </div>
                         </div>
 
                         <div class="overflow-hidden rounded-3xl border border-red-100/70 bg-white shadow-[0_40px_70px_-45px_rgba(125,12,20,0.5)]">
                             <iframe
-                                class="h-full min-h-[28rem] w-full"
+                                class="h-80 w-full md:h-full md:min-h-[28rem]"
                                 src="https://www.google.com/maps?q=JDM%20Frozen%20Food%2C%20Northwest%20Boulevard%20NV%2015%20No.%2026%2C%20Citraland%2C%20Kec.%20Pakal%2C%20Surabaya%2C%20Jawa%20Timur%2060196&output=embed"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"

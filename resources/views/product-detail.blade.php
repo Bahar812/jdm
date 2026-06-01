@@ -5,22 +5,22 @@
         <x-navbar active-page="products" />
 
         <main class="pb-16">
-            <section class="mx-auto grid max-w-7xl gap-10 px-6 pb-10 pt-12 lg:grid-cols-[1fr_1fr]">
+            <section class="mx-auto grid max-w-7xl gap-8 px-4 pb-10 pt-10 sm:px-6 md:gap-10 md:pt-12 lg:grid-cols-[1fr_1fr]">
                 <div>
-                    <img class="h-[24rem] w-full rounded-3xl object-cover md:h-[30rem]" src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                    <img class="h-72 w-full rounded-3xl object-cover sm:h-[24rem] md:h-[30rem]" src="{{ $product->image_url }}" alt="{{ $product->name }}">
                 </div>
 
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-red)]">{{ $product->category }}</p>
-                    <h1 class="mt-4 font-display text-5xl uppercase leading-[0.95] text-[color:var(--brand-ink)] md:text-6xl">
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--brand-red)] sm:tracking-[0.3em]">{{ $product->category }}</p>
+                    <h1 class="mt-4 break-words font-display text-5xl uppercase leading-[0.95] text-[color:var(--brand-ink)] md:text-6xl">
                         {{ $product->name }}
                     </h1>
                     <p class="mt-6 text-sm leading-relaxed text-slate-700 md:text-base">
                         {{ $product->description }}
                     </p>
 
-                    <div class="mt-7 flex items-end gap-3">
-                        <p class="text-3xl font-bold text-[color:var(--brand-red)]">
+                    <div class="mt-7 flex flex-wrap items-end gap-3">
+                        <p class="break-words text-3xl font-bold text-[color:var(--brand-red)]">
                             @if ($product->price > 0)
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             @else
@@ -31,20 +31,20 @@
                     </div>
                     <p class="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Stok tersedia: {{ $product->stock }}</p>
 
-                    <div class="mt-7 flex flex-wrap gap-3">
+                    <div class="mt-7 grid gap-3 sm:flex sm:flex-wrap">
                         <form action="{{ route('cart.add', $product) }}" method="POST">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
-                            <button class="btn-primary" type="submit">+ Keranjang</button>
+                            <button class="btn-primary w-full justify-center sm:w-auto" type="submit">+ Keranjang</button>
                         </form>
-                        <a class="btn-outline" href="{{ route('cart') }}">Lihat Keranjang</a>
-                        <a class="btn-outline" href="{{ route('products') }}">Kembali ke Produk</a>
+                        <a class="btn-outline justify-center sm:w-auto" href="{{ route('cart') }}">Lihat Keranjang</a>
+                        <a class="btn-outline justify-center sm:w-auto" href="{{ route('products') }}">Kembali ke Produk</a>
                     </div>
                 </div>
             </section>
 
             @if ($relatedProducts->count() > 0)
-                <section class="mx-auto max-w-7xl px-6">
+                <section class="mx-auto max-w-7xl px-4 sm:px-6">
                     <div class="mb-6">
                         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--brand-red)]">Rekomendasi</p>
                         <h2 class="mt-3 font-display text-4xl uppercase text-[color:var(--brand-ink)]">Produk Terkait</h2>

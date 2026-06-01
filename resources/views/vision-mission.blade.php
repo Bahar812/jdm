@@ -10,10 +10,10 @@
 
         <main>
             <section class="relative bg-[color:var(--brand-red)] text-white">
-                <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
                     <div class="max-w-4xl">
-                        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-white/80">Visi & Misi</p>
-                        <h1 class="mt-4 font-display text-5xl uppercase leading-[0.96] md:text-7xl">Vision & Mission</h1>
+                        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-white/80 sm:tracking-[0.4em]">Visi & Misi</p>
+                        <h1 class="mt-4 break-words font-display text-5xl uppercase leading-[0.96] md:text-7xl">Vision & Mission</h1>
                         <p class="mt-6 text-sm leading-relaxed text-white/85 md:text-base">
                             Komitmen kami untuk menjadi penyedia makanan halal, bermutu, dan praktis yang dapat diandalkan
                             oleh seluruh mitra usaha.
@@ -23,7 +23,7 @@
             </section>
 
             <section class="relative">
-                <div class="mx-auto max-w-6xl px-6 py-16">
+                <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-16">
                     <div class="grid gap-6 lg:grid-cols-2">
                         <article class="rounded-3xl border border-red-100/70 bg-white/90 p-8 shadow-[0_35px_70px_-45px_rgba(125,12,20,0.55)]">
                             <h2 class="font-display text-4xl uppercase text-[color:var(--brand-red)]">Visi</h2>
