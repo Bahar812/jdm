@@ -1,5 +1,35 @@
 @extends('layouts.app')
 
+@php
+    $articlesSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Blog',
+        'name' => 'Berita & Artikel JDM Frozen Food',
+        'description' => 'Artikel seputar frozen food, produk bahan baku, dan layanan CV. Juragan Daging Morowali.',
+        'url' => route('articles.index'),
+        'blogPost' => $articles->getCollection()->take(10)->map(fn ($article): array => [
+            '@type' => 'BlogPosting',
+            'headline' => $article->title,
+            'url' => route('articles.show', $article),
+            'image' => $article->image_url ?: asset('images/jdm-logo.png'),
+            'datePublished' => $article->published_at?->toAtomString(),
+        ])->all(),
+    ];
+@endphp
+
+@section('seo_title', 'Berita & Artikel Frozen Food | CV. Juragan Daging Morowali')
+@section('seo_description', 'Baca artikel JDM Frozen Food tentang produk frozen food, tips bahan baku, layanan supplier, dan informasi terbaru untuk mitra usaha.')
+@section('seo_url', $articles->url($articles->currentPage()))
+@section('seo_json_ld', json_encode($articlesSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+@section('seo_head')
+    @if ($articles->previousPageUrl())
+        <link rel="prev" href="{{ $articles->previousPageUrl() }}">
+    @endif
+    @if ($articles->nextPageUrl())
+        <link rel="next" href="{{ $articles->nextPageUrl() }}">
+    @endif
+@endsection
+
 @section('content')
     <div class="bg-white text-slate-950">
         <x-navbar active-page="articles" />

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('seo_title', 'Detail Order | JDM Frozen Food')
+@section('seo_description', 'Detail order pelanggan JDM Frozen Food.')
+@section('seo_robots', 'noindex, nofollow')
+
 @section('content')
     <div class="min-h-screen bg-slate-50">
         <x-navbar active-page="products" />

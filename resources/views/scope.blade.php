@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('seo_title', 'Ruang Lingkup Supplier Frozen Food | CV. Juragan Daging Morowali')
+@section('seo_description', 'Ruang lingkup layanan CV. Juragan Daging Morowali meliputi pengadaan frozen food, cold-chain handling, dan distribusi untuk mitra usaha.')
+@section('seo_url', route('scope'))
+
 @section('content')
     <div class="relative overflow-hidden bg-[color:var(--paper)]">
         <div class="pointer-events-none absolute inset-0 bg-grid opacity-[0.35]"></div>

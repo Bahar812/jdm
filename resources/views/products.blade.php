@@ -1,5 +1,29 @@
 @extends('layouts.app')
 
+@php
+    $productListSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => 'Katalog Produk Frozen Food CV. Juragan Daging Morowali',
+        'description' => 'Katalog produk frozen food seperti daging sapi, ayam, ikan, seafood, dan produk olahan untuk kebutuhan mitra usaha.',
+        'url' => route('products'),
+        'mainEntity' => [
+            '@type' => 'ItemList',
+            'itemListElement' => $products->values()->take(12)->map(fn ($product, int $index): array => [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'name' => $product->name,
+                'url' => route('product.detail', $product->slug),
+            ])->all(),
+        ],
+    ];
+@endphp
+
+@section('seo_title', 'Katalog Produk Frozen Food | CV. Juragan Daging Morowali')
+@section('seo_description', 'Lihat katalog produk frozen food JDM: daging sapi, ayam, ikan, seafood, produk olahan, dan kebutuhan bahan baku untuk usaha kuliner.')
+@section('seo_url', route('products'))
+@section('seo_json_ld', json_encode($productListSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+
 @section('content')
     @php
         $categoryCounts = [];

@@ -1,13 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
     <head>
+        @php
+            $defaultTitle = 'CV. Juragan Daging Morowali | Supplier Frozen Food';
+            $defaultDescription = 'CV. Juragan Daging Morowali menyediakan daging, ayam, ikan, seafood, dan frozen food berkualitas untuk kebutuhan usaha kuliner, retail, dan katering.';
+            $seoTitle = trim($__env->yieldContent('seo_title', $defaultTitle));
+            $seoDescription = trim($__env->yieldContent('seo_description', $defaultDescription));
+            $seoUrl = trim($__env->yieldContent('seo_url', url()->current()));
+            $seoImage = trim($__env->yieldContent('seo_image', asset('images/jdm-logo.png')));
+            $seoType = trim($__env->yieldContent('seo_type', 'website'));
+            $seoTwitterCard = trim($__env->yieldContent('seo_twitter_card', 'summary_large_image'));
+            $seoRobots = trim($__env->yieldContent('seo_robots', 'index, follow, max-image-preview:large'));
+            $seoJsonLd = trim($__env->yieldContent('seo_json_ld', ''));
+            $businessSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'LocalBusiness',
+                'name' => 'CV. Juragan Daging Morowali',
+                'alternateName' => 'JDM Frozen Food',
+                'url' => url('/'),
+                'logo' => asset('images/jdm-logo.png'),
+                'image' => asset('images/jdm-logo.png'),
+                'description' => $defaultDescription,
+                'email' => 'juragandagingmorowali@gmail.com',
+                'telephone' => '+628552268888',
+                'priceRange' => '$$',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => 'Northwest Boulevard NV 15 No. 26, Citraland',
+                    'addressLocality' => 'Surabaya',
+                    'addressRegion' => 'Jawa Timur',
+                    'postalCode' => '60196',
+                    'addressCountry' => 'ID',
+                ],
+                'areaServed' => ['Morowali', 'Surabaya', 'Indonesia'],
+                'sameAs' => [
+                    'https://www.instagram.com/juragandagingmorowali/',
+                ],
+            ];
+        @endphp
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>CV. Juragan Daging Morowali</title>
-        <meta
-            name="description"
-            content="CV. Juragan Daging Morowali"
-        />
+        <title>{{ $seoTitle }}</title>
+        <meta name="description" content="{{ $seoDescription }}" />
+        <meta name="robots" content="{{ $seoRobots }}" />
+        <meta name="author" content="CV. Juragan Daging Morowali" />
+        <link rel="canonical" href="{{ $seoUrl }}" />
+        @include('partials.favicons')
+        <meta property="og:locale" content="id_ID" />
+        <meta property="og:site_name" content="CV. Juragan Daging Morowali" />
+        <meta property="og:type" content="{{ $seoType }}" />
+        <meta property="og:title" content="{{ $seoTitle }}" />
+        <meta property="og:description" content="{{ $seoDescription }}" />
+        <meta property="og:url" content="{{ $seoUrl }}" />
+        <meta property="og:image" content="{{ $seoImage }}" />
+        <meta property="og:image:alt" content="{{ $seoTitle }}" />
+        <meta name="twitter:card" content="{{ $seoTwitterCard }}" />
+        <meta name="twitter:title" content="{{ $seoTitle }}" />
+        <meta name="twitter:description" content="{{ $seoDescription }}" />
+        <meta name="twitter:image" content="{{ $seoImage }}" />
+        <script type="application/ld+json">
+            {!! json_encode($businessSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+        </script>
+        @if ($seoJsonLd !== '')
+            <script type="application/ld+json">{!! $seoJsonLd !!}</script>
+        @endif
+        @yield('seo_head')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen antialiased">

@@ -308,14 +308,67 @@ const initMobileNav = () => {
     });
 };
 
+const initInfoModal = () => {
+    const modal = document.querySelector('[data-info-modal]');
+    const triggers = Array.from(document.querySelectorAll('[data-info-trigger]'));
+
+    if (!modal || !triggers.length) {
+        return;
+    }
+
+    const title = modal.querySelector('[data-info-modal-title]');
+    const body = modal.querySelector('[data-info-modal-body]');
+    const closeButtons = Array.from(modal.querySelectorAll('[data-info-modal-close]'));
+
+    const close = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    };
+
+    const open = (trigger) => {
+        if (title) {
+            title.textContent = trigger.dataset.infoTitle || 'Informasi';
+        }
+
+        if (body) {
+            body.textContent = trigger.dataset.infoBody || '';
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    };
+
+    triggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => open(trigger));
+    });
+
+    closeButtons.forEach((button) => {
+        button.addEventListener('click', close);
+    });
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            close();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+            close();
+        }
+    });
+};
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initMobileNav();
+        initInfoModal();
         initHeroScroll();
         initFocusRail();
     }, { once: true });
 } else {
     initMobileNav();
+    initInfoModal();
     initHeroScroll();
     initFocusRail();
 }

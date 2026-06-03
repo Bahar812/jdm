@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /keranjang
+Disallow: /checkout
+
+Sitemap: https://juragandagingmorowali.store/sitemap.xml

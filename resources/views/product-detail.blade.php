@@ -1,5 +1,42 @@
 @extends('layouts.app')
 
+@php
+    $productDescription = $product->description ?: "Produk {$product->name} dari CV. Juragan Daging Morowali untuk kebutuhan frozen food dan mitra usaha.";
+    $productImage = $product->image_url ?: asset('images/jdm-logo.png');
+    $productSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $product->name,
+        'description' => $productDescription,
+        'image' => [$productImage],
+        'sku' => $product->slug,
+        'category' => $product->category,
+        'brand' => [
+            '@type' => 'Brand',
+            'name' => 'JDM Frozen Food',
+        ],
+        'offers' => [
+            '@type' => 'Offer',
+            'url' => route('product.detail', $product->slug),
+            'priceCurrency' => 'IDR',
+            'price' => max(0, (int) $product->price),
+            'availability' => $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            'itemCondition' => 'https://schema.org/NewCondition',
+            'seller' => [
+                '@type' => 'Organization',
+                'name' => 'CV. Juragan Daging Morowali',
+            ],
+        ],
+    ];
+@endphp
+
+@section('seo_title', $product->name.' | Produk Frozen Food JDM')
+@section('seo_description', \Illuminate\Support\Str::limit($productDescription, 155))
+@section('seo_url', route('product.detail', $product->slug))
+@section('seo_image', $productImage)
+@section('seo_type', 'product')
+@section('seo_json_ld', json_encode($productSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+
 @section('content')
     <div class="bg-white">
         <x-navbar active-page="products" />

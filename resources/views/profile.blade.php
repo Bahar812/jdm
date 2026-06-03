@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('seo_title', 'Profil Perusahaan | CV. Juragan Daging Morowali')
+@section('seo_description', 'Profil CV. Juragan Daging Morowali sebagai general supplier frozen food untuk kebutuhan daging, ayam, ikan, seafood, dan bahan baku mitra usaha.')
+@section('seo_url', route('profile'))
+
 @section('content')
     <div class="relative overflow-hidden bg-[color:var(--paper)]">
         <div class="pointer-events-none absolute inset-0 bg-grid opacity-[0.35]"></div>

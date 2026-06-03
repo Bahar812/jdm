@@ -40,6 +40,47 @@ Route::get('/', function () {
         'homeArticles' => $homeArticles,
     ]);
 })->name('home');
+
+Route::get('/sitemap.xml', function () {
+    $staticUrls = collect([
+        ['loc' => route('home'), 'lastmod' => now(), 'changefreq' => 'weekly', 'priority' => '1.0'],
+        ['loc' => route('products'), 'lastmod' => now(), 'changefreq' => 'weekly', 'priority' => '0.9'],
+        ['loc' => route('articles.index'), 'lastmod' => now(), 'changefreq' => 'weekly', 'priority' => '0.8'],
+        ['loc' => route('profile'), 'lastmod' => now(), 'changefreq' => 'monthly', 'priority' => '0.7'],
+        ['loc' => route('vision_mission'), 'lastmod' => now(), 'changefreq' => 'monthly', 'priority' => '0.7'],
+        ['loc' => route('contact'), 'lastmod' => now(), 'changefreq' => 'monthly', 'priority' => '0.7'],
+        ['loc' => route('scope'), 'lastmod' => now(), 'changefreq' => 'monthly', 'priority' => '0.6'],
+    ]);
+
+    $productUrls = Product::query()
+        ->where('is_active', true)
+        ->select(['slug', 'updated_at'])
+        ->latest('updated_at')
+        ->get()
+        ->map(fn (Product $product): array => [
+            'loc' => route('product.detail', $product->slug),
+            'lastmod' => $product->updated_at ?? now(),
+            'changefreq' => 'weekly',
+            'priority' => '0.8',
+        ]);
+
+    $articleUrls = Article::query()
+        ->published()
+        ->select(['slug', 'updated_at', 'published_at'])
+        ->latest('published_at')
+        ->get()
+        ->map(fn (Article $article): array => [
+            'loc' => route('articles.show', $article),
+            'lastmod' => $article->updated_at ?? $article->published_at ?? now(),
+            'changefreq' => 'monthly',
+            'priority' => '0.7',
+        ]);
+
+    return response()
+        ->view('sitemap', ['urls' => $staticUrls->merge($productUrls)->merge($articleUrls)])
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 Route::view('/profil', 'profile')->name('profile');
 Route::view('/visi-misi', 'vision-mission')->name('vision_mission');
 Route::view('/ruang-lingkup', 'scope')->name('scope');

@@ -1,10 +1,43 @@
 @extends('layouts.app')
 
-@section('content')
-    @php
-        $imageUrl = $article->image_url ?: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1400&q=80';
-    @endphp
+@php
+    $imageUrl = $article->image_url ?: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1400&q=80';
+    $articleDescription = $article->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($article->content), 155);
+    $articleSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Article',
+        'headline' => $article->title,
+        'description' => $articleDescription,
+        'image' => [$imageUrl],
+        'datePublished' => $article->published_at?->toAtomString(),
+        'dateModified' => $article->updated_at?->toAtomString(),
+        'author' => [
+            '@type' => 'Organization',
+            'name' => 'CV. Juragan Daging Morowali',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'CV. Juragan Daging Morowali',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('images/jdm-logo.png'),
+            ],
+        ],
+        'mainEntityOfPage' => [
+            '@type' => 'WebPage',
+            '@id' => route('articles.show', $article),
+        ],
+    ];
+@endphp
 
+@section('seo_title', $article->title.' | Artikel JDM Frozen Food')
+@section('seo_description', \Illuminate\Support\Str::limit($articleDescription, 155))
+@section('seo_url', route('articles.show', $article))
+@section('seo_image', $imageUrl)
+@section('seo_type', 'article')
+@section('seo_json_ld', json_encode($articleSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+
+@section('content')
     <div class="bg-white text-slate-950">
         <x-navbar active-page="articles" />
 
@@ -12,7 +45,7 @@
             <article class="border-b border-red-100/70 bg-white">
                 <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-16">
                     <a href="{{ route('articles.index') }}" class="inline-flex text-xs font-bold uppercase tracking-[0.22em] text-[color:var(--brand-red)]">Kembali ke artikel</a>
-                    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{{ $article->category }} · {{ $article->published_at?->format('d M Y') }}</p>
+                    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{{ $article->category }} &middot; {{ $article->published_at?->format('d M Y') }}</p>
                     <h1 class="mt-4 break-words font-display text-[clamp(3rem,7vw,6.5rem)] uppercase leading-none text-black">{{ $article->title }}</h1>
                     @if ($article->excerpt)
                         <p class="mt-6 text-lg leading-8 text-slate-600">{{ $article->excerpt }}</p>

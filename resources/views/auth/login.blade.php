@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('seo_title', 'Login Admin | JDM Frozen Food')
+@section('seo_description', 'Halaman login admin JDM Frozen Food.')
+@section('seo_robots', 'noindex, nofollow')
+
 @section('content')
     <div class="min-h-screen bg-[linear-gradient(145deg,#e5e7eb_0%,#f8fafc_45%,#dbe1ef_100%)]">
         <x-navbar active-page="home" />

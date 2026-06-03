@@ -1,5 +1,33 @@
 @extends('layouts.app')
 
+@php
+    $contactSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'ContactPage',
+        'name' => 'Kontak CV. Juragan Daging Morowali',
+        'url' => route('contact'),
+        'mainEntity' => [
+            '@type' => 'LocalBusiness',
+            'name' => 'JDM Frozen Food',
+            'email' => 'juragandagingmorowali@gmail.com',
+            'telephone' => '+628552268888',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Northwest Boulevard NV 15 No. 26, Citraland',
+                'addressLocality' => 'Surabaya',
+                'addressRegion' => 'Jawa Timur',
+                'postalCode' => '60196',
+                'addressCountry' => 'ID',
+            ],
+        ],
+    ];
+@endphp
+
+@section('seo_title', 'Kontak Supplier Frozen Food | CV. Juragan Daging Morowali')
+@section('seo_description', 'Hubungi CV. Juragan Daging Morowali untuk kebutuhan frozen food, daging, ayam, ikan, seafood, harga, pemesanan, dan kemitraan usaha.')
+@section('seo_url', route('contact'))
+@section('seo_json_ld', json_encode($contactSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+
 @section('content')
     <div class="relative overflow-hidden bg-[color:var(--paper)]">
         <div class="pointer-events-none absolute inset-0 bg-grid opacity-[0.35]"></div>

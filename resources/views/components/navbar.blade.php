@@ -14,8 +14,8 @@
 <header class="sticky top-0 z-50 border-b border-red-100/70 bg-white/90 text-slate-950 shadow-sm backdrop-blur">
     <div class="relative mx-auto flex w-full max-w-[1360px] items-center px-4 py-3 sm:px-5 md:py-4 lg:px-4" data-site-nav>
         <a class="flex min-w-0 items-center gap-2 sm:gap-3" href="{{ route('home') }}">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color:var(--brand-red)] text-white sm:h-12 sm:w-12">
-                <span class="font-display text-lg tracking-[0.16em] sm:text-xl sm:tracking-[0.2em]">DM</span>
+            <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-red-100 bg-white p-0.5 shadow-sm sm:h-20 sm:w-20">
+                <img class="h-full w-full object-contain" src="{{ asset('images/jdm-logo.png') }}" alt="Logo Juragan Daging Morowali">
             </span>
             <div class="min-w-0">
                 <p class="truncate font-display text-xl uppercase tracking-[0.06em] text-[color:var(--brand-red)] sm:text-2xl sm:tracking-[0.08em]">

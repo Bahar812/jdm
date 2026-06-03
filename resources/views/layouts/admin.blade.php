@@ -4,13 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin Dashboard | Juragan Daging</title>
+        <meta name="robots" content="noindex, nofollow">
+        @include('partials.favicons')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen bg-[linear-gradient(145deg,#d9deea_0%,#eef1f7_45%,#dbe2f2_100%)] text-slate-900 antialiased">
         <div class="mx-auto grid min-h-screen max-w-[1500px] grid-cols-1 gap-4 p-4 lg:grid-cols-[250px_1fr]">
             <aside class="rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-sm">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
-                    <span class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-sm font-bold text-white">DM</span>
+                    <span class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-0.5 shadow-sm">
+                        <img class="h-full w-full object-contain" src="{{ asset('images/jdm-logo.png') }}" alt="Logo Juragan Daging Morowali">
+                    </span>
                     <div>
                         <p class="font-display text-2xl uppercase leading-none text-slate-900">Juragan Daging</p>
                         <p class="text-[10px] font-semibold uppercase tracking-[0.25em] text-slate-500">Admin Panel</p>

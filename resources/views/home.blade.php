@@ -1,5 +1,28 @@
 @extends('layouts.app')
 
+@php
+    $homeSeoSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => 'CV. Juragan Daging Morowali',
+        'alternateName' => 'JDM Frozen Food',
+        'url' => route('home'),
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'CV. Juragan Daging Morowali',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('images/jdm-logo.png'),
+            ],
+        ],
+    ];
+@endphp
+
+@section('seo_title', 'Supplier Frozen Food Morowali | CV. Juragan Daging Morowali')
+@section('seo_description', 'CV. Juragan Daging Morowali menyediakan daging, ayam, ikan, seafood, dan produk frozen food berkualitas untuk kebutuhan usaha kuliner, retail, katering, dan mitra bisnis.')
+@section('seo_url', route('home'))
+@section('seo_json_ld', json_encode($homeSeoSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+
 @section('content')
     @php
         $homeCms = $homeCms ?? [];
@@ -121,6 +144,69 @@
                                 loading="lazy"
                             >
                         </figure>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about-us" class="relative overflow-hidden bg-[#fffaf1] text-slate-950">
+                <div class="pointer-events-none absolute -left-24 top-12 h-64 w-64 rounded-full bg-[color:var(--brand-red-10)] blur-3xl"></div>
+                <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[0.9fr_1.1fr]">
+                    <div class="relative mx-auto w-full max-w-xl lg:mx-0">
+                        <div class="relative overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_28px_75px_-42px_rgba(125,12,20,0.7)] ring-1 ring-red-100">
+                            <video
+                                class="aspect-[4/3] w-full rounded-[1.45rem] bg-slate-950 object-cover"
+                                controls
+                                playsinline
+                                preload="metadata"
+                                poster="{{ $cmsImage('profile_image_1') }}"
+                                aria-label="Video proses produk frozen food JDM"
+                            >
+                                <source src="https://videos.pexels.com/video-files/4253328/4253328-uhd_4096_2160_25fps.mp4" type="video/mp4">
+                                Browser Anda tidak mendukung pemutar video.
+                            </video>
+
+                            <div class="absolute left-6 top-6 rounded-full bg-white/95 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[color:var(--brand-red)] shadow-lg">
+                                About JDM
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-5 left-5 rounded-2xl bg-[color:var(--brand-red)] px-5 py-4 text-white shadow-[0_22px_50px_-28px_rgba(125,12,20,0.95)] sm:px-6">
+                            <p class="font-display text-4xl uppercase leading-none">100%</p>
+                            <p class="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/80">Halal & Bermutu</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="mb-6 h-1 w-14 rounded-full bg-slate-900"></div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)]">About Us</p>
+                        <h2 class="mt-4 max-w-2xl text-3xl font-black leading-tight tracking-tight text-slate-950 md:text-5xl">
+                            Solusi Frozen Food Untuk Usaha & Industri Kuliner
+                        </h2>
+                        <p class="mt-5 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                            CV. Juragan Daging Morowali membantu mitra usaha mendapatkan pasokan frozen food yang praktis,
+                            konsisten, dan siap mendukung kebutuhan dapur harian. Kami fokus pada kualitas produk, stok yang
+                            stabil, dan pelayanan cepat untuk pelanggan bisnis maupun retail.
+                        </p>
+
+                        <div class="mt-8 grid gap-5 sm:grid-cols-3">
+                            <div>
+                                <p class="text-3xl font-black text-slate-950">12+</p>
+                                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Kategori Produk</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-black text-slate-950">100%</p>
+                                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Halal & Bermutu</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-black text-slate-950">24/7</p>
+                                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Siap Konsultasi</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <a class="btn-primary justify-center" href="{{ route('profile') }}">Tentang Perusahaan</a>
+                            <a class="btn-outline justify-center" href="{{ route('contact') }}">Hubungi Kami</a>
+                        </div>
                     </div>
                 </div>
             </section>
