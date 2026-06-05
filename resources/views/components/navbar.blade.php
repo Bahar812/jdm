@@ -49,7 +49,10 @@
                     <button class="btn-outline px-4 py-2 text-[10px]" type="submit">Logout</button>
                 </form>
             @else
-                <a class="order-1 btn-primary" href="{{ route('login') }}">Login</a>
+                <div class="order-1 flex items-center gap-2">
+                    <a class="btn-outline px-4 py-2 text-[10px]" href="{{ route('register') }}">Daftar</a>
+                    <a class="btn-primary px-4 py-2 text-[10px]" href="{{ route('login') }}">Login</a>
+                </div>
             @endauth
             <a
                 class="order-2 ml-3 inline-flex h-14 w-14 items-center justify-center text-black transition hover:text-[color:var(--brand-red)] relative"
@@ -131,6 +134,7 @@
                         <button class="btn-outline w-full justify-center px-4 py-3 text-[10px]" type="submit">Logout</button>
                     </form>
                 @else
+                    <a class="btn-outline justify-center px-4 py-3 text-[10px]" href="{{ route('register') }}">Daftar</a>
                     <a class="btn-primary justify-center px-4 py-3 text-[10px]" href="{{ route('login') }}">Login</a>
                 @endauth
             </div>

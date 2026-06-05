@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('seo_title', 'Login Admin | JDM Frozen Food')
-@section('seo_description', 'Halaman login admin JDM Frozen Food.')
+@section('seo_title', 'Login Akun | JDM Frozen Food')
+@section('seo_description', 'Halaman login akun JDM Frozen Food.')
 @section('seo_robots', 'noindex, nofollow')
 
 @section('content')
@@ -12,14 +12,14 @@
             <div class="grid w-full max-w-5xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_40px_90px_-55px_rgba(15,23,42,0.45)] lg:grid-cols-[1fr_1fr]">
                 <section class="hidden bg-[linear-gradient(160deg,#1f2937_0%,#111827_100%)] p-10 text-white lg:block">
                     <p class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-300">Juragan Daging</p>
-                    <h1 class="mt-4 font-display text-6xl uppercase leading-[0.95]">Admin Access</h1>
+                    <h1 class="mt-4 font-display text-6xl uppercase leading-[0.95]">Akun JDM</h1>
                     <p class="mt-4 text-sm leading-relaxed text-slate-200">
-                        Login untuk mengelola member, produk, order masuk, stok inventory, dan pembayaran Midtrans.
+                        Masuk untuk belanja produk frozen food, menyimpan data kontak, dan melanjutkan proses order.
                     </p>
                     <div class="mt-8 grid gap-3 text-sm">
-                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">Dashboard Penjualan</div>
-                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">CRUD Produk & Member</div>
-                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">Monitoring Order & Inventory</div>
+                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">Belanja Produk</div>
+                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">Keranjang & Checkout</div>
+                        <div class="rounded-xl border border-white/20 bg-white/10 px-4 py-3">Data Kontak Tersimpan</div>
                     </div>
                 </section>
 
@@ -52,8 +52,9 @@
                         </button>
                     </form>
 
-                    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-600">
-                        Demo admin: <span class="font-semibold">admin@juragandaging.test</span> / <span class="font-semibold">admin12345</span>
+                    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                        Belum punya akun?
+                        <a class="font-semibold text-[color:var(--brand-red)] hover:underline" href="{{ route('register') }}">Daftar sebagai pengunjung</a>
                     </div>
                 </section>
             </div>
